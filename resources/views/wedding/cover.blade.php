@@ -758,10 +758,322 @@
 
         }
 
-    </style>
+    
+
+        /* =========================================================
+           FUTURISTIC SCROLL + MUSIC
+        ========================================================= */
+        :root {
+            --fx-maroon: #800020;
+            --fx-maroon-dark: #570013;
+            --fx-gold: #d4af37;
+            --fx-gold-light: #ffe088;
+        }
+
+        #fx-scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 99999;
+            pointer-events: none;
+            background: rgba(128, 0, 32, .06);
+        }
+
+        #fx-scroll-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(
+                90deg,
+                var(--fx-maroon-dark),
+                var(--fx-maroon),
+                var(--fx-gold),
+                var(--fx-gold-light)
+            );
+            box-shadow:
+                0 0 12px rgba(128,0,32,.38),
+                0 0 20px rgba(212,175,55,.20);
+            transition: width .08s linear;
+        }
+
+        .fx-ambient {
+            position: fixed;
+            border-radius: 999px;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: .12;
+            will-change: transform;
+        }
+
+        .fx-ambient.fx-a {
+            width: 280px;
+            height: 280px;
+            top: 10vh;
+            left: -120px;
+            background: var(--fx-maroon);
+        }
+
+        .fx-ambient.fx-b {
+            width: 330px;
+            height: 330px;
+            top: 55vh;
+            right: -150px;
+            background: var(--fx-gold);
+            opacity: .08;
+        }
+
+        .fx-reveal {
+            opacity: 0;
+            transform:
+                perspective(1100px)
+                translate3d(0, 38px, 0)
+                scale(.985);
+            filter: blur(6px);
+            transition:
+                opacity .8s cubic-bezier(.16,1,.3,1),
+                transform .95s cubic-bezier(.16,1,.3,1),
+                filter .8s ease;
+            will-change: opacity, transform, filter;
+        }
+
+        .fx-reveal.fx-visible {
+            opacity: 1;
+            transform:
+                perspective(1100px)
+                translate3d(0,0,0)
+                scale(1);
+            filter: blur(0);
+        }
+
+        .fx-left {
+            transform:
+                perspective(1100px)
+                translate3d(-44px, 28px, 0)
+                rotateY(4deg)
+                scale(.985);
+        }
+
+        .fx-right {
+            transform:
+                perspective(1100px)
+                translate3d(44px, 28px, 0)
+                rotateY(-4deg)
+                scale(.985);
+        }
+
+        .fx-left.fx-visible,
+        .fx-right.fx-visible {
+            transform:
+                perspective(1100px)
+                translate3d(0,0,0)
+                rotateY(0)
+                scale(1);
+        }
+
+        .fx-card {
+            position: relative;
+            overflow: hidden;
+            transition:
+                transform .28s ease,
+                box-shadow .28s ease,
+                border-color .28s ease;
+            transform-style: preserve-3d;
+        }
+
+        .fx-card::after {
+            content: "";
+            position: absolute;
+            inset: -120%;
+            background: linear-gradient(
+                115deg,
+                transparent 42%,
+                rgba(255,255,255,.26) 50%,
+                rgba(255,224,136,.12) 53%,
+                transparent 61%
+            );
+            transform: translateX(-40%) rotate(8deg);
+            transition: transform .85s cubic-bezier(.16,1,.3,1);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .fx-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 18px 45px rgba(87,0,19,.14),
+                0 0 0 1px rgba(212,175,55,.10);
+        }
+
+        .fx-card:hover::after {
+            transform: translateX(42%) rotate(8deg);
+        }
+
+        .fx-heading {
+            transition: text-shadow .6s ease;
+        }
+
+        .fx-heading.fx-visible,
+        .fx-visible .fx-heading {
+            text-shadow:
+                0 0 22px rgba(128,0,32,.10),
+                0 0 34px rgba(212,175,55,.08);
+        }
+
+        .music-control {
+            position: fixed;
+            left: 16px;
+            bottom: 16px;
+            z-index: 99990;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255,224,136,.55);
+            border-radius: 999px;
+            background: rgba(128,0,32,.92);
+            color: #ffe088;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow:
+                0 12px 30px rgba(87,0,19,.28),
+                0 0 0 1px rgba(255,255,255,.05) inset;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .music-control:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow:
+                0 18px 36px rgba(87,0,19,.34),
+                0 0 18px rgba(255,224,136,.15);
+        }
+
+        .music-control.is-playing {
+            animation: fxMusicPulse 2.2s ease-in-out infinite;
+        }
+
+        .music-control .music-icon {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .music-tip {
+            position: fixed;
+            left: 74px;
+            bottom: 22px;
+            z-index: 99989;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255,248,245,.95);
+            color: #800020;
+            border: 1px solid rgba(128,0,32,.12);
+            box-shadow: 0 10px 26px rgba(87,0,19,.12);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateX(-8px);
+            pointer-events: none;
+            transition:
+                opacity .3s ease,
+                transform .3s ease;
+        }
+
+        .music-tip.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @keyframes fxMusicPulse {
+            0%,100% {
+                box-shadow:
+                    0 12px 30px rgba(87,0,19,.28),
+                    0 0 0 0 rgba(255,224,136,.18);
+            }
+            50% {
+                box-shadow:
+                    0 14px 34px rgba(87,0,19,.34),
+                    0 0 0 10px rgba(255,224,136,0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .fx-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+
+            .fx-ambient {
+                display: none;
+            }
+        }
+
+
+        .fx-cover-image {
+            will-change: transform;
+            transform: scale(1.03);
+            transition: transform .08s linear;
+        }
+
+        .photo-frame {
+            box-shadow:
+                0 0 28px rgba(214,166,47,.08) inset;
+        }
+
+</style>
 </head>
 
 <body>
+
+<div id="fx-scroll-progress" aria-hidden="true">
+    <div id="fx-scroll-progress-bar"></div>
+</div>
+
+<div class="fx-ambient fx-a" aria-hidden="true"></div>
+<div class="fx-ambient fx-b" aria-hidden="true"></div>
+
+<audio
+    id="wedding-music"
+    preload="auto"
+    loop
+    playsinline
+>
+    <source
+        src="{{ asset('assets/audio/wedding-song.mp3') }}"
+        type="audio/mpeg"
+    >
+</audio>
+
+<button
+    id="music-control"
+    class="music-control"
+    type="button"
+    aria-label="Putar atau jeda musik"
+    aria-pressed="false"
+>
+    <span id="music-icon" class="music-icon">♪</span>
+</button>
+
+<div id="music-tip" class="music-tip" aria-hidden="true">
+    Tap untuk musik
+</div>
+
 
 <div class="page">
 
@@ -773,11 +1085,12 @@
                  FOTO KIRI
             ======================================================= --}}
 
-            <div class="photo-section">
+            <div class="photo-section fx-cover-photo">
 
                 <img
                     src="{{ asset('assets/images/adat/MONO7455-Edit.jpg') }}"
                     alt="Fajar dan Ranti"
+                    class="fx-cover-image"
                 >
 
                 <div class="photo-overlay"></div>
@@ -910,6 +1223,328 @@
     </main>
 
 </div>
+
+
+<script>
+(function () {
+    const progressBar = document.getElementById('fx-scroll-progress-bar');
+    const orbA = document.querySelector('.fx-ambient.fx-a');
+    const orbB = document.querySelector('.fx-ambient.fx-b');
+    const audio = document.getElementById('wedding-music');
+    const musicButton = document.getElementById('music-control');
+    const musicIcon = document.getElementById('music-icon');
+    const musicTip = document.getElementById('music-tip');
+
+    let ticking = false;
+
+    function updateScrollFx() {
+        const scrollTop =
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            0;
+
+        const maxScroll =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        if (progressBar) {
+            const progress =
+                maxScroll > 0
+                    ? Math.min(100, (scrollTop / maxScroll) * 100)
+                    : 0;
+
+            progressBar.style.width = progress + '%';
+        }
+
+        if (orbA) {
+            orbA.style.transform =
+                'translate3d(0,' +
+                (scrollTop * 0.07) +
+                'px,0)';
+        }
+
+        if (orbB) {
+            orbB.style.transform =
+                'translate3d(0,' +
+                (-scrollTop * 0.04) +
+                'px,0)';
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener(
+        'scroll',
+        function () {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollFx);
+                ticking = true;
+            }
+        },
+        { passive: true }
+    );
+
+    updateScrollFx();
+
+    const revealTargets = Array.from(
+        document.querySelectorAll(
+            [
+                'section',
+                'main > div',
+                '.gallery-photo',
+                '.gallery-item',
+                '.mobile-rsvp-card article',
+                '.desktop-table tbody tr',
+                'footer'
+            ].join(',')
+        )
+    );
+
+    revealTargets.forEach(function (el, index) {
+        el.classList.add('fx-reveal');
+
+        if (index % 3 === 1) {
+            el.classList.add('fx-left');
+        } else if (index % 3 === 2) {
+            el.classList.add('fx-right');
+        }
+
+        el.dataset.fxDelay =
+            String((index % 5) * 60);
+    });
+
+    const observer = new IntersectionObserver(
+        function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const el = entry.target;
+                const delay =
+                    Number(el.dataset.fxDelay || 0);
+
+                window.setTimeout(function () {
+                    el.classList.add('fx-visible');
+                }, delay);
+
+                observer.unobserve(el);
+            });
+        },
+        {
+            root: null,
+            threshold: 0.12,
+            rootMargin: '0px 0px -8% 0px'
+        }
+    );
+
+    revealTargets.forEach(function (el) {
+        observer.observe(el);
+    });
+
+    document.querySelectorAll(
+        [
+            '.invitation-card',
+            '.gallery-item',
+            '.bg-white',
+            '.rounded-xl',
+            '.rounded-2xl'
+        ].join(',')
+    ).forEach(function (el) {
+        el.classList.add('fx-card');
+    });
+
+    document.querySelectorAll(
+        'h1, h2, .couple-name, .font-serif, .font-display'
+    ).forEach(function (el) {
+        el.classList.add('fx-heading');
+    });
+
+    if (!audio || !musicButton || !musicIcon) {
+        return;
+    }
+
+    audio.volume = 0.55;
+
+    let autoplayBlocked = false;
+    let userHandled = false;
+
+    function setMusicState(isPlaying) {
+        musicButton.classList.toggle(
+            'is-playing',
+            isPlaying
+        );
+
+        musicButton.setAttribute(
+            'aria-pressed',
+            isPlaying ? 'true' : 'false'
+        );
+
+        musicIcon.textContent =
+            isPlaying ? '♫' : '♪';
+    }
+
+    async function tryPlay() {
+        try {
+            await audio.play();
+
+            autoplayBlocked = false;
+            setMusicState(true);
+
+            if (musicTip) {
+                musicTip.classList.remove('show');
+            }
+
+            return true;
+        } catch (error) {
+            autoplayBlocked = true;
+            setMusicState(false);
+
+            if (musicTip) {
+                musicTip.classList.add('show');
+
+                window.setTimeout(
+                    function () {
+                        musicTip.classList.remove('show');
+                    },
+                    4200
+                );
+            }
+
+            return false;
+        }
+    }
+
+    function pauseMusic() {
+        audio.pause();
+        setMusicState(false);
+    }
+
+    musicButton.addEventListener(
+        'click',
+        async function () {
+            userHandled = true;
+
+            if (audio.paused) {
+                await tryPlay();
+            } else {
+                pauseMusic();
+            }
+        }
+    );
+
+    audio.addEventListener(
+        'play',
+        function () {
+            setMusicState(true);
+        }
+    );
+
+    audio.addEventListener(
+        'pause',
+        function () {
+            setMusicState(false);
+        }
+    );
+
+    window.addEventListener(
+        'load',
+        function () {
+            window.setTimeout(
+                tryPlay,
+                300
+            );
+        }
+    );
+
+    async function unlockAudio() {
+        if (
+            userHandled ||
+            !audio.paused ||
+            !autoplayBlocked
+        ) {
+            cleanupUnlock();
+            return;
+        }
+
+        userHandled = true;
+        await tryPlay();
+        cleanupUnlock();
+    }
+
+    function cleanupUnlock() {
+        document.removeEventListener(
+            'pointerdown',
+            unlockAudio
+        );
+
+        document.removeEventListener(
+            'touchstart',
+            unlockAudio
+        );
+
+        document.removeEventListener(
+            'keydown',
+            unlockAudio
+        );
+    }
+
+    document.addEventListener(
+        'pointerdown',
+        unlockAudio,
+        { passive: true }
+    );
+
+    document.addEventListener(
+        'touchstart',
+        unlockAudio,
+        { passive: true }
+    );
+
+    document.addEventListener(
+        'keydown',
+        unlockAudio
+    );
+})();
+</script>
+
+
+<script>
+(function () {
+    const image = document.querySelector('.fx-cover-image');
+
+    if (!image) return;
+
+    let ticking = false;
+
+    function updateCoverParallax() {
+        const y =
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            0;
+
+        image.style.transform =
+            'translate3d(0,' +
+            Math.min(45, y * 0.10) +
+            'px,0) scale(1.05)';
+
+        ticking = false;
+    }
+
+    window.addEventListener(
+        'scroll',
+        function () {
+            if (!ticking) {
+                requestAnimationFrame(updateCoverParallax);
+                ticking = true;
+            }
+        },
+        { passive: true }
+    );
+
+    updateCoverParallax();
+})();
+</script>
 
 </body>
 </html>

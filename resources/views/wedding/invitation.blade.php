@@ -249,25 +249,460 @@
                 line-height: 1.8;
             }
         }
+    
+
+        /* =========================================================
+           FUTURISTIC SCROLL EXPERIENCE
+           ========================================================= */
+        :root {
+            --fx-maroon: #800020;
+            --fx-maroon-dark: #570013;
+            --fx-gold: #ffe088;
+            --fx-gold-soft: rgba(255, 224, 136, .34);
+            --fx-glow: rgba(128, 0, 32, .22);
+        }
+
+        body {
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        /* Scroll progress */
+        #scroll-progress {
+            position: fixed;
+            inset: 0 0 auto 0;
+            height: 3px;
+            z-index: 9999;
+            background: rgba(128, 0, 32, .08);
+            pointer-events: none;
+        }
+
+        #scroll-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                var(--fx-maroon-dark),
+                var(--fx-maroon),
+                #d4af37,
+                var(--fx-gold)
+            );
+            box-shadow:
+                0 0 12px rgba(128, 0, 32, .45),
+                0 0 20px rgba(255, 224, 136, .28);
+            transition: width .08s linear;
+        }
+
+        /* Ambient futuristic glow */
+        .ambient-orb {
+            position: fixed;
+            border-radius: 999px;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: .16;
+            will-change: transform;
+        }
+
+        .ambient-orb.one {
+            width: 260px;
+            height: 260px;
+            top: 12vh;
+            left: -110px;
+            background: #800020;
+        }
+
+        .ambient-orb.two {
+            width: 320px;
+            height: 320px;
+            right: -150px;
+            top: 48vh;
+            background: #d4af37;
+            opacity: .10;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            isolation: isolate;
+        }
+
+        /* Reveal base */
+        .fx-reveal {
+            opacity: 0;
+            transform:
+                perspective(1100px)
+                translate3d(0, 42px, 0)
+                rotateX(4deg)
+                scale(.985);
+            filter: blur(7px);
+            transition:
+                opacity .85s cubic-bezier(.16, 1, .3, 1),
+                transform .95s cubic-bezier(.16, 1, .3, 1),
+                filter .85s ease;
+            will-change: opacity, transform, filter;
+        }
+
+        .fx-reveal.fx-visible {
+            opacity: 1;
+            transform:
+                perspective(1100px)
+                translate3d(0, 0, 0)
+                rotateX(0)
+                scale(1);
+            filter: blur(0);
+        }
+
+        .fx-left {
+            transform:
+                perspective(1100px)
+                translate3d(-44px, 28px, 0)
+                rotateY(5deg)
+                scale(.985);
+        }
+
+        .fx-right {
+            transform:
+                perspective(1100px)
+                translate3d(44px, 28px, 0)
+                rotateY(-5deg)
+                scale(.985);
+        }
+
+        .fx-left.fx-visible,
+        .fx-right.fx-visible {
+            transform:
+                perspective(1100px)
+                translate3d(0, 0, 0)
+                rotateY(0)
+                scale(1);
+        }
+
+        .fx-scale {
+            transform:
+                perspective(1100px)
+                translate3d(0, 20px, 0)
+                scale(.94);
+        }
+
+        .fx-scale.fx-visible {
+            transform:
+                perspective(1100px)
+                translate3d(0, 0, 0)
+                scale(1);
+        }
+
+        /* Section glow line */
+        .fx-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fx-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            transform: translateX(-50%);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(128, 0, 32, .65),
+                rgba(255, 224, 136, .9),
+                rgba(128, 0, 32, .65),
+                transparent
+            );
+            box-shadow: 0 0 16px rgba(128, 0, 32, .24);
+            transition: width 1.1s cubic-bezier(.16, 1, .3, 1);
+            z-index: 2;
+        }
+
+        .fx-section.fx-visible::before {
+            width: min(86%, 680px);
+        }
+
+        /* Futuristic card hover */
+        .fx-card {
+            position: relative;
+            overflow: hidden;
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                border-color .3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .fx-card::before {
+            content: "";
+            position: absolute;
+            inset: -120%;
+            background: linear-gradient(
+                115deg,
+                transparent 38%,
+                rgba(255, 255, 255, .32) 49%,
+                rgba(255, 224, 136, .18) 52%,
+                transparent 62%
+            );
+            transform: translateX(-35%) rotate(8deg);
+            transition: transform .85s cubic-bezier(.16, 1, .3, 1);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .fx-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(128, 0, 32, .38) !important;
+            box-shadow:
+                0 18px 50px rgba(87, 0, 19, .12),
+                0 0 0 1px rgba(255, 224, 136, .12);
+        }
+
+        .fx-card:hover::before {
+            transform: translateX(42%) rotate(8deg);
+        }
+
+        /* Animated ornament */
+        .fx-pulse {
+            animation: fxPulse 2.8s ease-in-out infinite;
+        }
+
+        @keyframes fxPulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0 rgba(128, 0, 32, 0));
+            }
+            50% {
+                transform: scale(1.07);
+                filter: drop-shadow(0 0 10px rgba(128, 0, 32, .28));
+            }
+        }
+
+        /* Hero parallax + cinematic entrance */
+        .hero-parallax {
+            will-change: transform;
+            transform: translate3d(0, 0, 0) scale(1.03);
+            transition: transform .1s linear;
+        }
+
+        .hero-content-fx {
+            animation: heroEntrance 1.35s cubic-bezier(.16, 1, .3, 1) both;
+        }
+
+        @keyframes heroEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(.98);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Headings get subtle glow when visible */
+        .fx-heading {
+            transition:
+                text-shadow .7s ease,
+                letter-spacing .7s ease;
+        }
+
+        .fx-visible .fx-heading,
+        .fx-heading.fx-visible {
+            text-shadow:
+                0 0 20px rgba(128, 0, 32, .10),
+                0 0 28px rgba(255, 224, 136, .08);
+        }
+
+        /* Countdown holographic-ish highlight */
+        .countdown-fx {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, .96),
+                    rgba(255, 248, 245, .88)
+                );
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, .8),
+                0 12px 30px rgba(87, 0, 19, .08);
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .countdown-fx:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow:
+                0 18px 38px rgba(87, 0, 19, .14),
+                0 0 22px rgba(255, 224, 136, .16);
+        }
+
+        /* Floating buttons */
+        .floating-fx {
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 12px 30px rgba(23, 10, 14, .14);
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .floating-fx:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(87, 0, 19, .22);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+
+            .fx-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+
+            .ambient-orb {
+                display: none;
+            }
+        }
+
+    
+
+        /* =========================================================
+           BACKGROUND MUSIC
+           ========================================================= */
+        .music-control {
+            position: fixed;
+            left: 18px;
+            bottom: 18px;
+            z-index: 1100;
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 224, 136, .55);
+            background: rgba(128, 0, 32, .92);
+            color: #ffe088;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow:
+                0 12px 30px rgba(87, 0, 19, .28),
+                0 0 0 1px rgba(255, 255, 255, .05) inset;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+        }
+
+        .music-control:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow:
+                0 18px 36px rgba(87, 0, 19, .34),
+                0 0 20px rgba(255, 224, 136, .18);
+        }
+
+        .music-control .material-symbols-outlined {
+            font-size: 23px;
+        }
+
+        .music-control.is-playing {
+            animation: musicPulse 2.2s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% {
+                box-shadow:
+                    0 12px 30px rgba(87, 0, 19, .28),
+                    0 0 0 0 rgba(255, 224, 136, .18);
+            }
+            50% {
+                box-shadow:
+                    0 14px 34px rgba(87, 0, 19, .34),
+                    0 0 0 10px rgba(255, 224, 136, 0);
+            }
+        }
+
+        .music-tip {
+            position: fixed;
+            left: 76px;
+            bottom: 24px;
+            z-index: 1099;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 248, 245, .94);
+            color: #800020;
+            border: 1px solid rgba(128, 0, 32, .14);
+            box-shadow: 0 10px 26px rgba(87, 0, 19, .12);
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateX(-8px);
+            pointer-events: none;
+            transition: opacity .3s ease, transform .3s ease;
+        }
+
+        .music-tip.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 640px) {
+            .music-control {
+                left: 14px;
+                bottom: 14px;
+                width: 44px;
+                height: 44px;
+            }
+
+            .music-tip {
+                left: 66px;
+                bottom: 19px;
+            }
+        }
+
     </style>
 </head>
 
 <body class="bg-surface text-on-surface antialiased songket-bg min-h-screen">
 
+<div id="scroll-progress" aria-hidden="true">
+    <div id="scroll-progress-bar"></div>
+</div>
+
+<div class="ambient-orb one" aria-hidden="true"></div>
+<div class="ambient-orb two" aria-hidden="true"></div>
+
+
 <main class="max-w-[800px] mx-auto bg-surface-container-lowest/95 shadow-2xl my-8 md:my-16 overflow-hidden">
 
     {{-- HERO --}}
-    <section class="relative w-full h-[80vh] md:h-[90vh] overflow-hidden">
+    <section class="relative w-full h-[80vh] md:h-[90vh] overflow-hidden fx-section">
 
         <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-black/20 to-transparent z-10"></div>
 
         <img
             alt="Fajar dan Ranti dalam busana adat Minangkabau"
-            class="absolute inset-0 w-full h-full object-cover object-top"
+            class="absolute inset-0 w-full h-full object-cover object-top hero-parallax"
             src="{{ asset('assets/images/adat/MONO7455-Edit.jpg') }}"
         >
 
-        <div class="absolute inset-0 z-20 flex flex-col items-center justify-end text-center p-8 pb-16">
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-end text-center p-8 pb-16 hero-content-fx">
 
             <span
                 class="font-label-md text-label-md text-secondary-fixed mb-4 tracking-[0.2em] uppercase bg-primary-container/90 px-6 py-2 rounded-full border border-secondary-fixed/50 shadow-lg"
@@ -276,7 +711,7 @@
             </span>
 
             <h1
-                class="font-display-lg text-[48px] sm:text-[64px] leading-tight text-on-primary mb-2 drop-shadow-xl font-bold"
+                class="font-display-lg text-[48px] sm:text-[64px] leading-tight text-on-primary mb-2 drop-shadow-xl font-bold fx-heading"
             >
                 Fajar &amp; Ranti
             </h1>
@@ -293,7 +728,7 @@
 
 
     {{-- QS AR-RUM --}}
-    <section class="py-20 text-center px-6 sm:px-12 max-w-4xl mx-auto">
+    <section class="py-20 text-center px-6 sm:px-12 max-w-4xl mx-auto fx-section">
 
         <div class="mb-10 flex justify-center">
 
@@ -307,7 +742,7 @@
         </div>
 
         <p
-            class="font-display-lg text-[18px] sm:text-[20px] leading-loose text-on-surface-variant italic"
+            class="font-display-lg text-[18px] sm:text-[20px] leading-loose text-on-surface-variant italic fx-heading"
         >
             "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
             pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
@@ -339,7 +774,7 @@
 
 
     {{-- OUR STORY --}}
-    <section class="py-16 sm:py-20 px-6 sm:px-12 bg-surface-container-low">
+    <section class="py-16 sm:py-20 px-6 sm:px-12 bg-surface-container-low fx-section">
 
         <div class="max-w-2xl mx-auto text-center">
 
@@ -350,7 +785,7 @@
             </span>
 
             <h2
-                class="font-display-lg text-headline-lg text-primary-container mt-2 mb-6"
+                class="font-display-lg text-headline-lg text-primary-container mt-2 mb-6 fx-heading"
             >
                 Bertemu di Waktu yang Tepat
             </h2>
@@ -370,7 +805,7 @@
 
 
             <p
-                class="story-quote font-display-lg text-[18px] sm:text-[20px] text-on-surface-variant italic leading-loose mb-8"
+                class="story-quote font-display-lg text-[18px] sm:text-[20px] text-on-surface-variant italic leading-loose mb-8 fx-heading"
             >
                 “Dari begitu banyak kemungkinan dalam hidup,
                 kami dipertemukan pada waktu dan tempat yang tepat.”
@@ -400,7 +835,7 @@
 
 
             <p
-                class="story-quote font-display-lg text-[18px] sm:text-[20px] text-primary italic leading-loose mb-8"
+                class="story-quote font-display-lg text-[18px] sm:text-[20px] text-primary italic leading-loose mb-8 fx-heading"
             >
                 “Salah satu hal terbaik dalam hidup adalah dipertemukan
                 dengan seseorang yang ingin kita pilih, lagi dan lagi.”
@@ -434,7 +869,7 @@
 
 
             <p
-                class="font-display-lg text-[22px] text-primary-container mt-5"
+                class="font-display-lg text-[22px] text-primary-container mt-5 fx-heading"
             >
                 Fajar &amp; Ranti
             </p>
@@ -459,10 +894,10 @@
 
 
     {{-- MEMPELAI --}}
-    <section class="py-12 px-6 sm:px-12 text-center">
+    <section class="py-12 px-6 sm:px-12 text-center fx-section">
 
         <h2
-            class="font-display-lg text-headline-lg text-primary-container mb-16"
+            class="font-display-lg text-headline-lg text-primary-container mb-16 fx-heading"
         >
             Mempelai
         </h2>
@@ -473,7 +908,7 @@
             <div class="flex flex-col items-center">
 
                 <h3
-                    class="font-display-lg text-[28px] text-primary mb-4"
+                    class="font-display-lg text-[28px] text-primary mb-4 fx-heading"
                 >
                     Muhammad Fajar, S.T.
                 </h3>
@@ -508,7 +943,7 @@
             <div class="flex flex-col items-center">
 
                 <h3
-                    class="font-display-lg text-[28px] text-primary mb-4"
+                    class="font-display-lg text-[28px] text-primary mb-4 fx-heading"
                 >
                     Arianti Fakhriana, SE
                 </h3>
@@ -545,12 +980,11 @@
 
 
     {{-- EVENTS --}}
-    <section
-        class="py-20 px-6 sm:px-12 bg-surface-container-low border-y border-primary/20"
+    <section class="py-20 px-6 sm:px-12 bg-surface-container-low border-y border-primary/20 fx-section"
     >
 
         <h2
-            class="font-display-lg text-headline-lg text-primary-container text-center mb-16"
+            class="font-display-lg text-headline-lg text-primary-container text-center mb-16 fx-heading"
         >
             Rangkaian Acara
         </h2>
@@ -575,12 +1009,12 @@
             >
 
                 <div
-                    class="ornate-border bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
+                    class="ornate-border fx-card countdown-fx bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
                 >
 
                     <span
                         id="countdown-days"
-                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none"
+                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none fx-heading"
                     >
                         00
                     </span>
@@ -595,12 +1029,12 @@
 
 
                 <div
-                    class="ornate-border bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
+                    class="ornate-border fx-card countdown-fx bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
                 >
 
                     <span
                         id="countdown-hours"
-                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none"
+                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none fx-heading"
                     >
                         00
                     </span>
@@ -615,12 +1049,12 @@
 
 
                 <div
-                    class="ornate-border bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
+                    class="ornate-border fx-card countdown-fx bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
                 >
 
                     <span
                         id="countdown-minutes"
-                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none"
+                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none fx-heading"
                     >
                         00
                     </span>
@@ -635,12 +1069,12 @@
 
 
                 <div
-                    class="ornate-border bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
+                    class="ornate-border fx-card countdown-fx bg-surface-container-lowest py-4 sm:py-5 px-1 sm:px-2 rounded-lg shadow-sm flex flex-col items-center justify-center"
                 >
 
                     <span
                         id="countdown-seconds"
-                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none"
+                        class="font-display-lg text-[28px] sm:text-[40px] font-bold text-primary-container leading-none fx-heading"
                     >
                         00
                     </span>
@@ -662,19 +1096,19 @@
 
             {{-- AKAD --}}
             <div
-                class="ornate-border bg-surface-container-lowest p-6 sm:p-10 text-center flex flex-col items-center"
+                class="ornate-border fx-card bg-surface-container-lowest p-6 sm:p-10 text-center flex flex-col items-center"
             >
 
                 <span
                     class="bg-primary-container text-secondary-fixed font-label-md text-label-md px-6 py-2 rounded-full mb-8 tracking-widest uppercase shadow-sm"
                 >
-                    Akad Nikah
+                    Akad Nikah & RESEPSI
                 </span>
 
                 <div
-                    class="font-display-lg text-[24px] text-primary mb-6"
+                    class="font-display-lg text-[24px] text-primary mb-6 fx-heading"
                 >
-                    Rabu, 14 Oktober 2026
+                    Rabu, 14-15 Oktober 2026
                 </div>
 
                 <div
@@ -714,7 +1148,7 @@
 
             {{-- RESEPSI --}}
             <div
-                class="ornate-border bg-surface-container-lowest p-6 sm:p-10 text-center flex flex-col items-center"
+                class="ornate-border fx-card bg-surface-container-lowest p-6 sm:p-10 text-center flex flex-col items-center"
             >
 
                 <span
@@ -724,7 +1158,7 @@
                 </span>
 
                 <div
-                    class="font-display-lg text-[24px] text-primary mb-6"
+                    class="font-display-lg text-[24px] text-primary mb-6 fx-heading"
                 >
                     Sabtu, 17 Oktober 2026
                 </div>
@@ -767,9 +1201,49 @@
     </section>
 
 
+
+
+    {{-- DENAH LOKASI --}}
+<section class="py-20 px-12 fx-section">
+<h2 class="font-display-lg text-headline-lg text-primary-container text-center mb-16 fx-heading">Denah Lokasi</h2>
+<div class="space-y-20">
+{{-- LOCATION FAJAR --}}
+<div>
+<h3 class="font-display-lg text-[28px] text-primary text-center mb-8 border-b-2 border-primary-container/30 pb-4 inline-block w-full max-w-md mx-auto fx-heading">Lokasi Resepsi&nbsp;(Fajar)</h3>
+<div class="grid md:grid-cols-3 gap-8 items-center bg-surface-container-low p-8 rounded-xl border border-primary/10">
+<div class="md:col-span-2 border-2 border-primary/20 p-2 rounded-lg bg-white">
+<img alt="Map to Fajar's Location" class="w-full h-auto object-contain rounded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC8EhfhP6NKjhxGMY4hjFk_fYKJUlTJq3e67LvapLfEsmT0GiAPjef6PMRMC0-N8LChqfSkxZVu6m4pJ4-Uf6F9EIQ0k_2GYqxR0WEmOmEoWAwZZsQm0Dq-k6-8vIKNacauljoAYZC89kda5Ulexn41cibrCWjL8n87jgvQgHZ_RGgEZbgPBWZfAs9etuatqppLbW7VwRQvzkl2sjtTiwwX2Ychyrk_IxqwdO-B1oRefJCUmHSq891qzagb7cNX6NtxA">
+</div>
+<div class="flex flex-col items-center justify-center p-6 bg-white rounded-lg border border-primary/10 shadow-sm h-full">
+<img alt="QR Code for Fajar's Location GPS" class="w-full max-w-[200px] h-auto object-contain mb-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKIXqrTvlQZiOnBVMUoOdMfey9CjRYH86uub53gLACqAbHLuhKz9Y_Kgk3wvPRL7Lsjzjqmdqg88WNMkk4UjhZsbm0FFrcZ5S1FpnlgeS7Bntk2L7yHysaygCyaVFVNKHEOArEJpCu_Gu6GeMkoV9ljdxrrPAQHMW289PDZEr0IJZWGXyiMf52aUaMK_j-WTDYtPoQ26QTklFoguIv8pixI_t4TCmnM5uILPNsL3Yop6_f9eL_Sll7srk-3v6hJzFIxQ">
+<div class="flex items-center gap-2 text-primary-container font-label-md text-label-md uppercase tracking-wider">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                                Scan untuk GPS
+                            </div>
+</div>
+</div>
+</div>
+{{-- LOCATION RANTI --}}
+<div>
+<h3 class="font-display-lg text-[28px] text-primary text-center mb-8 border-b-2 border-primary-container/30 pb-4 inline-block w-full max-w-md mx-auto fx-heading">Lokasi Akad (Ranti)</h3>
+<div class="grid md:grid-cols-3 gap-8 items-center bg-surface-container-low p-8 rounded-xl border border-primary/10">
+<div class="md:col-span-2 border-2 border-primary/20 p-2 rounded-lg bg-white">
+<img alt="Map to Ranti's Location" class="w-full h-auto object-contain rounded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9TAB0TTTNZ9k4PdkpO55xPLVI51kwbuH7VA3cETPZQApAUcJtuz5iUZkNlnSwPnz90SThLlFM111HNB3urCsZdB0mn3RdAQg2O6iPXrswxLAJTEWwhOtZSqgrs_Sa0zWca5AQP_S6NJz4G50eSo7H0SZEahzb_dHDYch4xIciZiRmPP2zTH44xyThKD_U4H295QgOOiUYhENEZhTxkbPwXF1OwSox0UYFc6f4LlUR3kzlb8Zgio4AnJus4YzNHwq_Iw">
+</div>
+<div class="flex flex-col items-center justify-center p-6 bg-white rounded-lg border border-primary/10 shadow-sm h-full">
+<img alt="QR Code for Ranti's Location GPS" class="w-full max-w-[200px] h-auto object-contain mb-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjfSA21pvWgkwr1m_uP6Gm8mSP4676sNLZIFsbgnb5kzUZ6ckxQc2UDWF3I6zg5RPxZgmcIK_tKhtMp11Xp7PXtrV1IdoMlYiWpjL8qCsMtrXETQ45bsJ6emtND_P38EpilUY_EP3TDSMUnF7Yypd1KKb72d2Ff-zB5Ans4LaGO8_xWNxJf7ip0mJtBghNa1oecOrCC2cIRmYL83OFy2hbxC8BNbf0qtS90jy-kxlV17Y9KOBd8Y38xc0mdDm94bf14w">
+<div class="flex items-center gap-2 text-primary-container font-label-md text-label-md uppercase tracking-wider">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                                Scan untuk GPS
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
     {{-- GALERI --}}
-    <section
-        class="py-20 px-6 sm:px-12 bg-surface text-center border-t border-primary/20"
+    <section class="py-20 px-6 sm:px-12 bg-surface text-center border-t border-primary/20 fx-section"
     >
 
         <div class="max-w-3xl mx-auto">
@@ -783,7 +1257,7 @@
                 </span>
 
                 <h2
-                    class="font-display-lg text-headline-lg text-primary-container mt-2 mb-4"
+                    class="font-display-lg text-headline-lg text-primary-container mt-2 mb-4 fx-heading"
                 >
                     Galeri Foto &amp; Prewedding
                 </h2>
@@ -815,7 +1289,7 @@
 
 
             <div
-                class="ornate-border bg-surface-container-lowest p-8 sm:p-10 rounded-xl shadow-md flex flex-col items-center justify-center text-center relative overflow-hidden"
+                class="ornate-border fx-card bg-surface-container-lowest p-8 sm:p-10 rounded-xl shadow-md flex flex-col items-center justify-center text-center relative overflow-hidden"
             >
 
                 <div
@@ -832,7 +1306,7 @@
 
 
                 <h3
-                    class="font-display-lg text-[22px] text-primary mb-3 font-semibold"
+                    class="font-display-lg text-[22px] text-primary mb-3 font-semibold fx-heading"
                 >
                     Abadikan Momen Bersejarah
                 </h3>
@@ -870,8 +1344,7 @@
 
 
     {{-- RSVP --}}
-    <section
-        class="py-20 px-6 sm:px-12 bg-surface-container-low border-t border-primary/20"
+    <section class="py-20 px-6 sm:px-12 bg-surface-container-low border-t border-primary/20 fx-section"
     >
 
         <div class="max-w-xl mx-auto">
@@ -885,7 +1358,7 @@
                 </span>
 
                 <h2
-                    class="font-display-lg text-headline-lg text-primary-container mt-2 mb-4"
+                    class="font-display-lg text-headline-lg text-primary-container mt-2 mb-4 fx-heading"
                 >
                     Konfirmasi Kehadiran
                 </h2>
@@ -902,7 +1375,7 @@
 
 
             <div
-                class="ornate-border bg-surface-container-lowest p-6 sm:p-10 rounded-xl shadow-md"
+                class="ornate-border fx-card bg-surface-container-lowest p-6 sm:p-10 rounded-xl shadow-md"
             >
 
                 @if(session('rsvp_success'))
@@ -1143,8 +1616,7 @@
 
 
     {{-- WEDDING GIFT --}}
-    <section
-        class="py-20 px-6 sm:px-12 bg-surface text-center border-t border-primary/20"
+    <section class="py-20 px-6 sm:px-12 bg-surface text-center border-t border-primary/20 fx-section"
     >
 
         <div class="max-w-3xl mx-auto">
@@ -1158,7 +1630,7 @@
                 </span>
 
                 <h2
-                    class="font-display-lg text-headline-lg text-primary-container mt-2 mb-4"
+                    class="font-display-lg text-headline-lg text-primary-container mt-2 mb-4 fx-heading"
                 >
                     Tanda Kasih &amp; Amplop Digital
                 </h2>
@@ -1179,7 +1651,7 @@
 
                 {{-- BNI --}}
                 <div
-                    class="ornate-border bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden"
+                    class="ornate-border fx-card bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden"
                 >
 
                     <div
@@ -1189,7 +1661,7 @@
                         <div class="flex items-center gap-2">
 
                             <span
-                                class="font-display-lg text-[22px] font-bold text-primary tracking-wider"
+                                class="font-display-lg text-[22px] font-bold text-primary tracking-wider fx-heading"
                             >
                                 BNI
                             </span>
@@ -1274,7 +1746,7 @@
 
                 {{-- MANDIRI --}}
                 <div
-                    class="ornate-border bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden"
+                    class="ornate-border fx-card bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden"
                 >
 
                     <div
@@ -1284,7 +1756,7 @@
                         <div class="flex items-center gap-2">
 
                             <span
-                                class="font-display-lg text-[22px] font-bold text-[#003d79] tracking-wider"
+                                class="font-display-lg text-[22px] font-bold text-[#003d79] tracking-wider fx-heading"
                             >
                                 mandiri
                             </span>
@@ -1372,155 +1844,114 @@
 
     </section>
 
-
     {{-- TURUT MENGUNDANG --}}
-    <section
-        class="py-20 px-6 sm:px-12 bg-primary-container text-on-primary"
+    @php
+        $invitedFamilies = [
+            ['name' => 'Dt. Marajo', 'relation' => 'Mamak Adat'],
+            ['name' => 'Ali Nasri', 'relation' => 'Mamak'],
+            ['name' => 'Islami', 'relation' => 'Mamak'],
+            ['name' => 'Jamal', 'relation' => 'Mamak'],
+            ['name' => 'Bu Ayan', 'relation' => 'Mamak'],
+            ['name' => 'Lifuardi', 'relation' => 'Mamak'],
+            ['name' => 'Alma', 'relation' => 'Ungku'],
+            ['name' => 'Deli Usfi', 'relation' => 'Mamak'],
+            ['name' => 'Dewi Adya Putri', 'relation' => 'Kakak'],
+            ['name' => 'Yunimar', 'relation' => 'Etek'],
+            ['name' => 'Yusnita', 'relation' => 'Etek'],
+            ['name' => 'Juki Eldi', 'relation' => 'Sumando'],
+            ['name' => 'Gustof Triananda', 'relation' => 'Apak'],
+            ['name' => 'Yunizar', 'relation' => 'Mak Wo'],
+            ['name' => 'Sepri Naldi', 'relation' => 'Kakak'],
+            ['name' => 'Yusmaksel', 'relation' => 'Kakak'],
+            ['name' => 'Syahrul Asril', 'relation' => 'Kakak'],
+            ['name' => 'Putri Nanda', 'relation' => 'Kakak'],
+            ['name' => 'Syarah Jelita', 'relation' => 'Adik'],
+            ['name' => 'Ir. Edwandi, M.M', 'relation' => 'Om'],
+            ['name' => 'A. Dt. Mangkuto Marajo / Irma Devitrianti, SE', 'relation' => 'Mamak Adat / Tante'],
+            ['name' => 'Sylvera, A.Md / Yusman', 'relation' => 'Bunda / Ayah'],
+            ['name' => 'Ali Mardias (alm) / Marni R', 'relation' => 'Inyiak / Iyak'],
+            ['name' => 'Asrul Deni Putra / Silvia Monalisa', 'relation' => 'Apak / Etek'],
+            ['name' => 'Amiridwan, S.Kom / Nurhasniati, S.Pd', 'relation' => 'Apak / Etek'],
+            ['name' => 'Asna Suryani, S.Pd / Hidayat, SH', 'relation' => 'Tante / Om'],
+            ['name' => 'Syamsu Anwar, A.Md / Reni Eka Putri, A.Md.Kep', 'relation' => 'Apak / Etek'],
+            ['name' => 'Alfian Edison, A.Md / Afridalti, S.Pd', 'relation' => 'Apak / Etek'],
+            ['name' => 'Alfina', 'relation' => 'Apak'],
+        ];
+    @endphp
+
+    <section class="py-20 px-6 sm:px-12 bg-primary-container text-on-primary fx-section"
     >
-
-        <h2
-            class="font-display-lg text-headline-lg text-secondary-fixed text-center mb-12"
-        >
-            Turut Mengundang
-        </h2>
-
-
         <div class="max-w-3xl mx-auto">
 
-            <ul
-                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-8 font-headline-md text-[16px] text-on-primary/90"
-            >
+            <div class="text-center mb-14">
+                <span
+                    class="font-label-md text-[12px] text-secondary-fixed/80 tracking-[0.25em] uppercase"
+                >
+                    Keluarga Besar
+                </span>
 
-                <li class="bintang-bullet">
-                    Dt. Marajo (Mamak Adat)
-                </li>
+                <h2
+                    class="font-display-lg text-[32px] sm:text-[36px] text-secondary-fixed mt-3 mb-6 fx-heading"
+                >
+                    Turut Mengundang
+                </h2>
 
-                <li class="bintang-bullet">
-                    Ali Nasri (Mamak)
-                </li>
+                <div class="flex items-center justify-center opacity-70">
+                    <div class="h-[1px] w-16 sm:w-24 bg-secondary-fixed/60"></div>
+                    <span class="text-secondary-fixed mx-4 text-sm">❖</span>
+                    <div class="h-[1px] w-16 sm:w-24 bg-secondary-fixed/60"></div>
+                </div>
+            </div>
 
-                <li class="bintang-bullet">
-                    Islami (Mamak)
-                </li>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-0">
+                @foreach($invitedFamilies as $family)
+                    <div
+                        class="group flex items-start gap-4 py-4 border-b border-secondary-fixed/20"
+                    >
+                        <div class="flex-shrink-0 pt-[5px]">
+                            <span class="text-secondary-fixed text-[11px]">❖</span>
+                        </div>
 
-                <li class="bintang-bullet">
-                    Jamal (Mamak)
-                </li>
+                        <div class="min-w-0">
+                            <p
+                                class="font-headline-md text-[15px] sm:text-[16px] leading-relaxed text-on-primary font-medium"
+                            >
+                                {{ $family['name'] }}
+                            </p>
 
-                <li class="bintang-bullet">
-                    Bu Ayan (Mamak)
-                </li>
+                            <p
+                                class="font-body-md text-[11px] sm:text-[12px] text-secondary-fixed/75 mt-1 uppercase tracking-[0.12em]"
+                            >
+                                {{ $family['relation'] }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
 
-                <li class="bintang-bullet">
-                    Lifuardi (Mamak)
-                </li>
+            <div class="flex justify-center mt-14">
+                <div class="text-center">
+                    <div class="text-secondary-fixed text-xl mb-3">❖</div>
 
-                <li class="bintang-bullet">
-                    Alma (Ungku)
-                </li>
-
-                <li class="bintang-bullet">
-                    Deli Usfi (Mamak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Dewi Adya Putri (Kakak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Yunimar (Etek)
-                </li>
-
-                <li class="bintang-bullet">
-                    Yusnita (Etek)
-                </li>
-
-                <li class="bintang-bullet">
-                    Juki Eldi (Sumando)
-                </li>
-
-                <li class="bintang-bullet">
-                    Gustof Triananda (Apak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Yunizar (Mak Wo)
-                </li>
-
-                <li class="bintang-bullet">
-                    Sepri Naldi (Kakak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Yusmaksel (Kakak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Syahrul Asril (Kakak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Putri Nanda (Kakak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Syarah Jelita (Adik)
-                </li>
-
-                <li class="bintang-bullet">
-                    Ir. Edwandi, M.M (Om)
-                </li>
-
-                <li class="bintang-bullet">
-                    A. Dt. Mangkuto Marajo / Irma Devitrianti, SE
-                    (Mamak Adat/Tante)
-                </li>
-
-                <li class="bintang-bullet">
-                    Sylvera, A.Md / Yusman (Bunda/Ayah)
-                </li>
-
-                <li class="bintang-bullet">
-                    Ali Mardias (alm) / Marni R (Inyiak/Iyak)
-                </li>
-
-                <li class="bintang-bullet">
-                    Asrul Deni Putra / Silvia Monalisa (Apak/Etek)
-                </li>
-
-                <li class="bintang-bullet">
-                    Amiridwan, S.Kom / Nurhasniati, S.Pd (Apak/Etek)
-                </li>
-
-                <li class="bintang-bullet">
-                    Asna Suryani, S.Pd / Hidayat, SH (Tante/Om)
-                </li>
-
-                <li class="bintang-bullet">
-                    Syamsu Anwar, A.Md / Reni Eka Putri, A.Md.Kep
-                    (Apak/Etek)
-                </li>
-
-                <li class="bintang-bullet">
-                    Alfian Edison, A.Md / Afridalti, S.Pd (Apak/Etek)
-                </li>
-
-                <li class="bintang-bullet">
-                    Alfina (Apak)
-                </li>
-
-            </ul>
+                    <p
+                        class="font-display-lg text-[16px] text-on-primary/80 italic fx-heading"
+                    >
+                        Dengan penuh rasa hormat dan kebahagiaan
+                    </p>
+                </div>
+            </div>
 
         </div>
-
     </section>
 
 
+
+
     {{-- HORMAT KAMI --}}
-    <section class="py-16 text-center px-6 sm:px-12">
+    <section class="py-16 text-center px-6 sm:px-12 fx-section">
 
         <h3
-            class="font-display-lg text-[24px] text-primary mb-6"
+            class="font-display-lg text-[24px] text-primary mb-6 fx-heading"
         >
             Hormat Kami
         </h3>
@@ -1670,6 +2101,44 @@
 </script>
 
 
+
+{{-- BACKGROUND MUSIC --}}
+<audio
+    id="wedding-music"
+    preload="auto"
+    loop
+    playsinline
+>
+    <source
+        src="{{ asset('assets/audio/wedding-song.mp3') }}"
+        type="audio/mpeg"
+    >
+</audio>
+
+<button
+    id="music-control"
+    class="music-control"
+    type="button"
+    aria-label="Putar atau jeda musik"
+    aria-pressed="false"
+>
+    <span
+        id="music-icon"
+        class="material-symbols-outlined"
+    >
+        volume_off
+    </span>
+</button>
+
+<div
+    id="music-tip"
+    class="music-tip"
+    aria-hidden="true"
+>
+    Tap untuk musik
+</div>
+
+
 {{-- FLOATING BUTTON --}}
 <div
     style="
@@ -1686,6 +2155,7 @@
 
     <a
         href="{{ route('wedding.gallery') }}"
+        class="floating-fx"
         style="
             background:#800020;
             color:#ffe088;
@@ -1704,6 +2174,7 @@
 
     <a
         href="{{ route('admin.rsvp.index') }}"
+        class="floating-fx"
         style="
             background:#fff8f5;
             color:#800020;
@@ -1720,6 +2191,321 @@
     </a>
 
 </div>
+
+
+<script>
+    (function () {
+        const progressBar = document.getElementById('scroll-progress-bar');
+        const heroImage = document.querySelector('.hero-parallax');
+        const orbOne = document.querySelector('.ambient-orb.one');
+        const orbTwo = document.querySelector('.ambient-orb.two');
+
+        let ticking = false;
+
+        function updateScrollEffects() {
+            const scrollTop =
+                window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                0;
+
+            const docHeight =
+                document.documentElement.scrollHeight -
+                window.innerHeight;
+
+            if (progressBar) {
+                const progress =
+                    docHeight > 0
+                        ? Math.min(100, (scrollTop / docHeight) * 100)
+                        : 0;
+
+                progressBar.style.width = progress + '%';
+            }
+
+            if (heroImage) {
+                const heroShift = Math.min(90, scrollTop * 0.16);
+
+                heroImage.style.transform =
+                    'translate3d(0,' +
+                    heroShift +
+                    'px,0) scale(1.05)';
+            }
+
+            if (orbOne) {
+                orbOne.style.transform =
+                    'translate3d(0,' +
+                    (scrollTop * 0.08) +
+                    'px,0)';
+            }
+
+            if (orbTwo) {
+                orbTwo.style.transform =
+                    'translate3d(0,' +
+                    (-scrollTop * 0.045) +
+                    'px,0)';
+            }
+
+            ticking = false;
+        }
+
+        window.addEventListener(
+            'scroll',
+            function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateScrollEffects);
+                    ticking = true;
+                }
+            },
+            { passive: true }
+        );
+
+        updateScrollEffects();
+
+
+        const sections =
+            document.querySelectorAll('.fx-section');
+
+        sections.forEach(function (section, index) {
+            section.classList.add('fx-reveal');
+
+            if (index % 3 === 1) {
+                section.classList.add('fx-left');
+            } else if (index % 3 === 2) {
+                section.classList.add('fx-right');
+            }
+        });
+
+
+        const revealTargets = document.querySelectorAll(
+            [
+                '.fx-section',
+                '.ornate-border',
+                '.leader-card',
+                '.gallery-item'
+            ].join(',')
+        );
+
+        revealTargets.forEach(function (element, index) {
+            element.classList.add('fx-reveal');
+
+            if (!element.classList.contains('fx-section')) {
+                if (index % 3 === 0) {
+                    element.classList.add('fx-left');
+                } else if (index % 3 === 1) {
+                    element.classList.add('fx-right');
+                } else {
+                    element.classList.add('fx-scale');
+                }
+            }
+        });
+
+
+        const observer = new IntersectionObserver(
+            function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    const element = entry.target;
+
+                    const delay =
+                        Math.min(
+                            280,
+                            Number(element.dataset.fxDelay || 0)
+                        );
+
+                    window.setTimeout(function () {
+                        element.classList.add('fx-visible');
+                    }, delay);
+
+                    observer.unobserve(element);
+                });
+            },
+            {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.12
+            }
+        );
+
+
+        revealTargets.forEach(function (element, index) {
+            element.dataset.fxDelay =
+                String((index % 5) * 70);
+
+            observer.observe(element);
+        });
+
+
+        document.querySelectorAll(
+            '.material-symbols-outlined'
+        ).forEach(function (icon, index) {
+            if (index % 4 === 0) {
+                icon.classList.add('fx-pulse');
+            }
+        });
+    })();
+</script>
+
+
+<script>
+    (function () {
+        const audio = document.getElementById('wedding-music');
+        const button = document.getElementById('music-control');
+        const icon = document.getElementById('music-icon');
+        const tip = document.getElementById('music-tip');
+
+        if (!audio || !button || !icon) {
+            return;
+        }
+
+        audio.volume = 0.55;
+
+        let startedByUser = false;
+        let autoplayBlocked = false;
+
+        function setPlayingState(isPlaying) {
+            button.classList.toggle('is-playing', isPlaying);
+            button.setAttribute(
+                'aria-pressed',
+                isPlaying ? 'true' : 'false'
+            );
+
+            icon.textContent = isPlaying
+                ? 'volume_up'
+                : 'volume_off';
+        }
+
+        async function tryPlay() {
+            try {
+                await audio.play();
+
+                autoplayBlocked = false;
+                setPlayingState(true);
+
+                if (tip) {
+                    tip.classList.remove('show');
+                }
+
+                return true;
+            } catch (error) {
+                autoplayBlocked = true;
+                setPlayingState(false);
+
+                if (tip) {
+                    tip.classList.add('show');
+
+                    window.setTimeout(function () {
+                        tip.classList.remove('show');
+                    }, 4500);
+                }
+
+                return false;
+            }
+        }
+
+        function pauseMusic() {
+            audio.pause();
+            setPlayingState(false);
+        }
+
+        button.addEventListener('click', async function () {
+            startedByUser = true;
+
+            if (audio.paused) {
+                await tryPlay();
+            } else {
+                pauseMusic();
+            }
+        });
+
+        audio.addEventListener('play', function () {
+            setPlayingState(true);
+        });
+
+        audio.addEventListener('pause', function () {
+            setPlayingState(false);
+        });
+
+        /*
+         * Browser modern sering memblokir autoplay audio bersuara.
+         * Kita tetap mencoba autoplay langsung.
+         */
+        window.addEventListener('load', function () {
+            window.setTimeout(tryPlay, 350);
+        });
+
+        /*
+         * Jika diblokir, musik otomatis dimulai pada interaksi pertama
+         * pengunjung: klik, touch, atau tombol keyboard.
+         */
+        async function unlockAudio() {
+            if (
+                startedByUser ||
+                !audio.paused ||
+                !autoplayBlocked
+            ) {
+                cleanupUnlock();
+                return;
+            }
+
+            startedByUser = true;
+            await tryPlay();
+            cleanupUnlock();
+        }
+
+        function cleanupUnlock() {
+            document.removeEventListener(
+                'pointerdown',
+                unlockAudio
+            );
+
+            document.removeEventListener(
+                'touchstart',
+                unlockAudio
+            );
+
+            document.removeEventListener(
+                'keydown',
+                unlockAudio
+            );
+        }
+
+        document.addEventListener(
+            'pointerdown',
+            unlockAudio,
+            { passive: true }
+        );
+
+        document.addEventListener(
+            'touchstart',
+            unlockAudio,
+            { passive: true }
+        );
+
+        document.addEventListener(
+            'keydown',
+            unlockAudio
+        );
+
+        /*
+         * Saat user kembali ke tab, lanjutkan lagi hanya jika sebelumnya
+         * musik memang sedang berjalan.
+         */
+        let wasPlayingBeforeHidden = false;
+
+        document.addEventListener(
+            'visibilitychange',
+            function () {
+                if (document.hidden) {
+                    wasPlayingBeforeHidden = !audio.paused;
+                } else if (wasPlayingBeforeHidden) {
+                    tryPlay();
+                }
+            }
+        );
+    })();
+</script>
 
 </body>
 </html>
