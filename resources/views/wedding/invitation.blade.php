@@ -579,73 +579,408 @@
     
 
         /* =========================================================
-           BACKGROUND MUSIC
+           MINANG PREMIUM CINEMATIC THEME
+           Inspired by supplied TikTok reference
            ========================================================= */
-        .music-control {
+        :root {
+            --minang-black: #110b0b;
+            --minang-black-soft: #1b1111;
+            --minang-maroon: #5b0814;
+            --minang-maroon-deep: #35040b;
+            --minang-red: #7a0d1c;
+            --minang-gold: #d9b86c;
+            --minang-gold-soft: #f2ddb0;
+            --minang-cream: #f8eee3;
+            --minang-line: rgba(217, 184, 108, .38);
+            --minang-glass: rgba(18, 10, 10, .74);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 20% 10%, rgba(122, 13, 28, .18), transparent 28%),
+                radial-gradient(circle at 80% 42%, rgba(217, 184, 108, .08), transparent 24%),
+                linear-gradient(180deg, #130b0c 0%, #2b080e 52%, #110909 100%) !important;
+        }
+
+        body::before {
+            content: "";
             position: fixed;
-            left: 18px;
-            bottom: 18px;
-            z-index: 1100;
-            width: 48px;
-            height: 48px;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: .23;
+            background-image:
+                linear-gradient(45deg, rgba(217,184,108,.035) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(217,184,108,.035) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(217,184,108,.035) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(217,184,108,.035) 75%);
+            background-size: 34px 34px;
+            background-position: 0 0, 0 17px, 17px -17px, -17px 0;
+        }
+
+        main,
+        .page,
+        header,
+        footer,
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* cinematic section rhythm */
+        section {
+            scroll-margin-top: 20px;
+        }
+
+        section:not(.invitation-card) {
+            border-color: rgba(217,184,108,.12) !important;
+        }
+
+        /* dark premium surfaces */
+        .bg-surface,
+        .bg-surface-container-low,
+        .bg-surface-container-lowest,
+        .bg-white,
+        .bg-\[\#fff8f5\],
+        .bg-stone-50,
+        .bg-stone-100 {
+            background-color: rgba(20, 10, 11, .86) !important;
+            color: var(--minang-cream) !important;
+        }
+
+        .text-on-surface,
+        .text-on-surface-variant,
+        .text-stone-800,
+        .text-stone-700,
+        .text-stone-600,
+        .text-stone-500,
+        .text-muted,
+        .text-textmain {
+            color: rgba(248,238,227,.82) !important;
+        }
+
+        .text-primary,
+        .text-primary-container,
+        .text-maroon,
+        .text-gold,
+        .text-secondary {
+            color: var(--minang-gold) !important;
+        }
+
+        .border-primary\/20,
+        .border-maroon\/10,
+        .border-gold\/20,
+        .border-stone-100,
+        .border-stone-200 {
+            border-color: rgba(217,184,108,.20) !important;
+        }
+
+        /* ornamental frame */
+        .minang-frame,
+        .ornate-border,
+        .gallery-item,
+        .invitation-card {
+            position: relative;
+            border: 1px solid rgba(217,184,108,.34) !important;
+            box-shadow:
+                0 24px 70px rgba(0,0,0,.30),
+                inset 0 0 0 1px rgba(255,255,255,.02);
+        }
+
+        .ornate-border::after,
+        .minang-frame::after {
+            border-color: rgba(217,184,108,.52) !important;
+        }
+
+        /* title typography */
+        h1, h2, h3,
+        .font-display-lg,
+        .font-serif,
+        .font-display,
+        .couple-name {
+            letter-spacing: -.02em;
+            text-wrap: balance;
+        }
+
+        h1, h2,
+        .couple-name {
+            text-shadow:
+                0 3px 22px rgba(0,0,0,.42),
+                0 0 26px rgba(217,184,108,.08);
+        }
+
+        /* gold button style like reference */
+        a[class*="bg-primary-container"],
+        button[class*="bg-primary-container"],
+        .open-button,
+        .filter-button.active,
+        .admin-header-button.bg-maroon {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4dfb0 0%,
+                    #d9b86c 50%,
+                    #b98c3c 100%
+                ) !important;
+            color: #2c160d !important;
+            border: 1px solid rgba(255,245,220,.72) !important;
+            box-shadow:
+                0 10px 28px rgba(0,0,0,.24),
+                inset 0 1px 0 rgba(255,255,255,.45);
+        }
+
+        a[class*="bg-primary-container"]:hover,
+        button[class*="bg-primary-container"]:hover,
+        .open-button:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow:
+                0 16px 38px rgba(0,0,0,.34),
+                0 0 24px rgba(217,184,108,.16);
+        }
+
+        /* hero becomes cinematic */
+        section:first-of-type,
+        .photo-section {
+            isolation: isolate;
+        }
+
+        section:first-of-type::after,
+        .photo-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(10,4,5,.10) 0%,
+                    rgba(10,4,5,.12) 48%,
+                    rgba(10,4,5,.74) 100%
+                );
+            z-index: 1;
+        }
+
+        /* make first hero photo deeper and premium */
+        .hero-parallax,
+        .fx-cover-image,
+        .photo-section img {
+            filter:
+                saturate(.82)
+                contrast(1.05)
+                brightness(.82);
+        }
+
+        /* section cards with reference-like black/brown glass */
+        .fx-card,
+        .ornate-border,
+        .gallery-item,
+        .mobile-rsvp-card article {
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(27,17,17,.92),
+                    rgba(15,9,9,.96)
+                ) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* timeline/vertical visual cue */
+        .fx-section::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 1px;
+            height: 34px;
+            transform: translateX(-50%);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(217,184,108,.60),
+                    transparent
+                );
+            opacity: .55;
+            pointer-events: none;
+        }
+
+        /* songket diamond details */
+        .fx-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fx-section .font-display-lg::before,
+        .fx-section .font-serif::before {
+            content: "";
+        }
+
+        /* inputs */
+        input,
+        textarea,
+        select {
+            background: rgba(255,255,255,.06) !important;
+            color: var(--minang-cream) !important;
+            border-color: rgba(217,184,108,.25) !important;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(248,238,227,.42) !important;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: rgba(217,184,108,.72) !important;
+            box-shadow: 0 0 0 3px rgba(217,184,108,.10) !important;
+        }
+
+        option {
+            background: #1b1111;
+            color: #f8eee3;
+        }
+
+        /* floating controls */
+        .music-control,
+        .floating-fx {
+            background:
+                linear-gradient(145deg, #6c0b18, #35040b) !important;
+            color: var(--minang-gold-soft) !important;
+            border-color: rgba(217,184,108,.55) !important;
+        }
+
+        /* elegant reveal */
+        .fx-reveal {
+            transform:
+                perspective(1100px)
+                translate3d(0, 55px, 0)
+                scale(.97);
+            filter: blur(9px);
+            opacity: 0;
+        }
+
+        .fx-reveal.fx-visible {
+            transform:
+                perspective(1100px)
+                translate3d(0,0,0)
+                scale(1);
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        /* subtle image frame */
+        img {
+            image-rendering: auto;
+        }
+
+        .gallery-item {
+            border-radius: 20px !important;
+        }
+
+        .gallery-item img {
+            transition:
+                transform .7s cubic-bezier(.16,1,.3,1),
+                filter .7s ease !important;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.055) !important;
+            filter: brightness(.72) saturate(.9) !important;
+        }
+
+        /* mobile = narrow luxury invitation feel */
+        @media (max-width: 640px) {
+            body {
+                background:
+                    linear-gradient(180deg,#150b0c,#300810 45%,#100808) !important;
+            }
+
+            section {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+
+            .fx-card,
+            .ornate-border,
+            .gallery-item {
+                border-radius: 18px !important;
+            }
+
+            h1 {
+                line-height: 1.05 !important;
+            }
+
+            .music-control {
+                width: 46px;
+                height: 46px;
+            }
+        }
+
+
+
+        /* =========================================================
+           BACKGROUND MUSIC - INVITATION
+           ========================================================= */
+        .wedding-music-control {
+            position: fixed;
+            left: 16px;
+            bottom: 16px;
+            z-index: 100000;
+            width: 50px;
+            height: 50px;
             border-radius: 999px;
-            border: 1px solid rgba(255, 224, 136, .55);
-            background: rgba(128, 0, 32, .92);
-            color: #ffe088;
+            border: 1px solid rgba(242, 221, 176, .60);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(122, 13, 28, .96),
+                    rgba(53, 4, 11, .96)
+                );
+            color: #f2ddb0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             box-shadow:
-                0 12px 30px rgba(87, 0, 19, .28),
-                0 0 0 1px rgba(255, 255, 255, .05) inset;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+                0 14px 34px rgba(0, 0, 0, .34),
+                0 0 0 1px rgba(255, 255, 255, .04) inset;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             transition:
                 transform .25s ease,
                 box-shadow .25s ease,
-                background .25s ease;
+                opacity .25s ease;
         }
 
-        .music-control:hover {
+        .wedding-music-control:hover {
             transform: translateY(-3px) scale(1.04);
             box-shadow:
-                0 18px 36px rgba(87, 0, 19, .34),
-                0 0 20px rgba(255, 224, 136, .18);
+                0 18px 40px rgba(0, 0, 0, .40),
+                0 0 24px rgba(217, 184, 108, .18);
         }
 
-        .music-control .material-symbols-outlined {
-            font-size: 23px;
+        .wedding-music-control.is-playing {
+            animation: weddingMusicPulse 2.2s ease-in-out infinite;
         }
 
-        .music-control.is-playing {
-            animation: musicPulse 2.2s ease-in-out infinite;
+        .wedding-music-control .material-symbols-outlined {
+            font-size: 24px;
         }
 
-        @keyframes musicPulse {
-            0%, 100% {
-                box-shadow:
-                    0 12px 30px rgba(87, 0, 19, .28),
-                    0 0 0 0 rgba(255, 224, 136, .18);
-            }
-            50% {
-                box-shadow:
-                    0 14px 34px rgba(87, 0, 19, .34),
-                    0 0 0 10px rgba(255, 224, 136, 0);
-            }
-        }
-
-        .music-tip {
+        .wedding-music-tip {
             position: fixed;
             left: 76px;
-            bottom: 24px;
-            z-index: 1099;
+            bottom: 23px;
+            z-index: 99999;
             padding: 8px 12px;
             border-radius: 999px;
-            background: rgba(255, 248, 245, .94);
-            color: #800020;
-            border: 1px solid rgba(128, 0, 32, .14);
-            box-shadow: 0 10px 26px rgba(87, 0, 19, .12);
+            background: rgba(17, 11, 11, .90);
+            color: #f2ddb0;
+            border: 1px solid rgba(217, 184, 108, .28);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             font-family: Manrope, sans-serif;
             font-size: 10px;
             font-weight: 700;
@@ -654,29 +989,540 @@
             opacity: 0;
             transform: translateX(-8px);
             pointer-events: none;
-            transition: opacity .3s ease, transform .3s ease;
+            transition:
+                opacity .3s ease,
+                transform .3s ease;
         }
 
-        .music-tip.show {
+        .wedding-music-tip.show {
             opacity: 1;
             transform: translateX(0);
         }
 
-        @media (max-width: 640px) {
-            .music-control {
-                left: 14px;
-                bottom: 14px;
-                width: 44px;
-                height: 44px;
+        @keyframes weddingMusicPulse {
+            0%, 100% {
+                box-shadow:
+                    0 14px 34px rgba(0, 0, 0, .34),
+                    0 0 0 0 rgba(217, 184, 108, .20);
             }
-
-            .music-tip {
-                left: 66px;
-                bottom: 19px;
+            50% {
+                box-shadow:
+                    0 16px 38px rgba(0, 0, 0, .40),
+                    0 0 0 11px rgba(217, 184, 108, 0);
             }
         }
 
-    </style>
+        @media (max-width: 640px) {
+            .wedding-music-control {
+                left: 14px;
+                bottom: 14px;
+                width: 46px;
+                height: 46px;
+            }
+
+            .wedding-music-tip {
+                left: 68px;
+                bottom: 20px;
+            }
+        }
+
+    
+
+        /* =========================================================
+           TEXT READABILITY FIX
+           ========================================================= */
+
+        /* Default readable text on dark premium background */
+        body,
+        main,
+        section {
+            color: #f8eee3;
+        }
+
+        /* Main headings */
+        h1,
+        h2,
+        h3,
+        .font-display-lg,
+        .font-headline-md,
+        .font-headline-lg {
+            color: #f2ddb0 !important;
+        }
+
+        /* Important title color */
+        .text-primary,
+        .text-primary-container,
+        .text-secondary,
+        .text-secondary-fixed {
+            color: #e3c57f !important;
+        }
+
+        /* Paragraph/body text */
+        .text-on-surface,
+        .text-on-surface-variant,
+        .text-on-primary,
+        .text-muted,
+        .text-stone-500,
+        .text-stone-600,
+        .text-stone-700,
+        .font-body-md,
+        .story-text,
+        .story-quote {
+            color: rgba(248, 238, 227, .88) !important;
+        }
+
+        /* Small labels */
+        .font-label-md,
+        label,
+        .tracking-widest,
+        .uppercase {
+            color: rgba(242, 221, 176, .90);
+        }
+
+        /* Hero keeps maximum contrast */
+        .hero-content-fx h1,
+        .hero-content-fx p,
+        .hero-content-fx span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content-fx h1 {
+            color: #fff9f0 !important;
+            text-shadow:
+                0 3px 14px rgba(0, 0, 0, .85),
+                0 0 28px rgba(0, 0, 0, .55);
+        }
+
+        .hero-content-fx p {
+            color: #f2ddb0 !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, .80);
+        }
+
+        /* Quran / story readability */
+        .story-text,
+        .story-quote,
+        section p {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .16);
+        }
+
+        /* Cards */
+        .ornate-border,
+        .fx-card {
+            color: #f8eee3 !important;
+        }
+
+        .ornate-border p,
+        .ornate-border div,
+        .fx-card p,
+        .fx-card div {
+            color: rgba(248, 238, 227, .88);
+        }
+
+        .ornate-border h2,
+        .ornate-border h3,
+        .fx-card h2,
+        .fx-card h3 {
+            color: #f2ddb0 !important;
+        }
+
+        /* Countdown */
+        #countdown-days,
+        #countdown-hours,
+        #countdown-minutes,
+        #countdown-seconds {
+            color: #f2ddb0 !important;
+            text-shadow:
+                0 2px 14px rgba(0,0,0,.32),
+                0 0 18px rgba(217,184,108,.10);
+        }
+
+        /* RSVP form */
+        input,
+        textarea,
+        select {
+            color: #fff8ef !important;
+            background: rgba(255,255,255,.075) !important;
+            border-color: rgba(217,184,108,.32) !important;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(248,238,227,.55) !important;
+            opacity: 1;
+        }
+
+        label {
+            color: #e8cb88 !important;
+        }
+
+        select option {
+            background: #1b1111 !important;
+            color: #fff8ef !important;
+        }
+
+        /* Radio option cards */
+        form label[class*="bg-surface"] {
+            background: rgba(255,255,255,.055) !important;
+            border-color: rgba(217,184,108,.26) !important;
+        }
+
+        form label[class*="bg-surface"] span {
+            color: #f8eee3 !important;
+        }
+
+        /* Wedding gift account numbers */
+        #rekening-bni,
+        #rekening-mandiri {
+            color: #fff8ef !important;
+        }
+
+        /* Turut Mengundang */
+        section.bg-primary-container {
+            background:
+                linear-gradient(
+                    180deg,
+                    #500713 0%,
+                    #32040b 100%
+                ) !important;
+        }
+
+        section.bg-primary-container p {
+            color: rgba(255,248,239,.92) !important;
+        }
+
+        section.bg-primary-container h2,
+        section.bg-primary-container span {
+            color: #f2ddb0 !important;
+        }
+
+        /* Denah area */
+        section img + *,
+        section .bg-white {
+            color: #f8eee3;
+        }
+
+        /* Improve text density and legibility on phone */
+        @media (max-width: 640px) {
+
+            .font-body-md,
+            .story-text {
+                font-size: 14px !important;
+                line-height: 1.85 !important;
+            }
+
+            .story-quote {
+                font-size: 17px !important;
+                line-height: 1.75 !important;
+            }
+
+            h2,
+            .font-display-lg {
+                line-height: 1.25 !important;
+            }
+
+            .font-label-md {
+                letter-spacing: .10em;
+            }
+        }
+
+
+
+        /* =========================================================
+           QS AR-RUM - HARD CONTRAST FIX
+           ========================================================= */
+        .qs-ar-rum-section {
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(128, 0, 32, .08),
+                    transparent 42%
+                ),
+                #fff8f5 !important;
+            color: #35171d !important;
+            border-top: 1px solid rgba(128, 0, 32, .08);
+            border-bottom: 1px solid rgba(128, 0, 32, .08);
+        }
+
+        .qs-ar-rum-section .material-symbols-outlined {
+            color: #800020 !important;
+            filter: none !important;
+            text-shadow: none !important;
+        }
+
+        .qs-ar-rum-section p:first-of-type {
+            color: #35171d !important;
+            opacity: 1 !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
+            filter: none !important;
+            letter-spacing: 0 !important;
+        }
+
+        .qs-ar-rum-section p:last-of-type {
+            color: #8a6112 !important;
+            opacity: 1 !important;
+            font-weight: 800 !important;
+            text-shadow: none !important;
+            filter: none !important;
+        }
+
+        .qs-ar-rum-section * {
+            mix-blend-mode: normal !important;
+        }
+
+        /* Divider directly after QS section */
+        .qs-ar-rum-section + .flex.items-center.justify-center {
+            background: #fff8f5 !important;
+        }
+
+        .qs-ar-rum-section + .flex.items-center.justify-center .bg-primary {
+            background-color: #800020 !important;
+            opacity: .65 !important;
+        }
+
+        .qs-ar-rum-section + .flex.items-center.justify-center .text-primary {
+            color: #b89243 !important;
+            opacity: 1 !important;
+        }
+
+        @media (max-width: 640px) {
+            .qs-ar-rum-section p:first-of-type {
+                font-size: 17px !important;
+                line-height: 1.9 !important;
+            }
+
+            .qs-ar-rum-section p:last-of-type {
+                font-size: 12px !important;
+                letter-spacing: .16em !important;
+            }
+        }
+
+
+
+        /* =========================================================
+           MEMPELAI - HARD CONTRAST FIX
+           ========================================================= */
+        .mempelai-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    #fffaf6 0%,
+                    #f8eee3 100%
+                ) !important;
+            color: #35171d !important;
+            border-top: 1px solid rgba(128,0,32,.08);
+            border-bottom: 1px solid rgba(128,0,32,.08);
+        }
+
+        .mempelai-section h2 {
+            color: #800020 !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+            filter: none !important;
+        }
+
+        .mempelai-section h3 {
+            color: #6b0018 !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+            filter: none !important;
+        }
+
+        .mempelai-section p {
+            color: #5a3a40 !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+            filter: none !important;
+        }
+
+        .mempelai-section .font-headline-md,
+        .mempelai-section .font-body-md,
+        .mempelai-section .text-on-surface,
+        .mempelai-section .text-on-surface-variant {
+            color: #4a2c32 !important;
+            opacity: 1 !important;
+        }
+
+        .mempelai-section .text-primary {
+            color: #b48424 !important;
+            opacity: 1 !important;
+        }
+
+        .mempelai-section * {
+            mix-blend-mode: normal !important;
+        }
+
+        /* Ensure parent labels are readable */
+        .mempelai-section .font-headline-md p {
+            color: #3d2429 !important;
+            font-weight: 600 !important;
+        }
+
+        .mempelai-section .font-body-md {
+            color: #6a4a50 !important;
+            font-weight: 500 !important;
+        }
+
+        /* Divider after mempelai */
+        .mempelai-section + .fx-section,
+        .mempelai-section + .flex.items-center.justify-center {
+            background: #fff8f5 !important;
+        }
+
+        @media (max-width: 640px) {
+            .mempelai-section h3 {
+                font-size: 25px !important;
+                line-height: 1.35 !important;
+            }
+
+            .mempelai-section .font-headline-md {
+                font-size: 16px !important;
+                line-height: 1.75 !important;
+            }
+
+            .mempelai-section .font-body-md {
+                font-size: 14px !important;
+            }
+        }
+
+
+
+        /* =========================================================
+           HORMAT KAMI - HARD CONTRAST FIX
+           ========================================================= */
+        .hormat-kami-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    #fffaf6 0%,
+                    #f6eadf 100%
+                ) !important;
+            color: #35171d !important;
+            border-top: 1px solid rgba(128,0,32,.08);
+            border-bottom: 1px solid rgba(128,0,32,.08);
+        }
+
+        .hormat-kami-section h3 {
+            color: #800020 !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+            filter: none !important;
+        }
+
+        .hormat-kami-section p {
+            color: #3f252b !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+            filter: none !important;
+            font-weight: 600 !important;
+        }
+
+        .hormat-kami-section > p.text-primary,
+        .hormat-kami-section .text-primary {
+            color: #b48424 !important;
+            opacity: 1 !important;
+            font-weight: 800 !important;
+        }
+
+        .hormat-kami-section .font-headline-md,
+        .hormat-kami-section .text-on-surface-variant {
+            color: #3f252b !important;
+            opacity: 1 !important;
+        }
+
+        .hormat-kami-section span {
+            color: #b48424 !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+        }
+
+        .hormat-kami-section * {
+            mix-blend-mode: normal !important;
+        }
+
+        @media (max-width: 640px) {
+            .hormat-kami-section h3 {
+                font-size: 24px !important;
+                line-height: 1.3 !important;
+            }
+
+            .hormat-kami-section .font-headline-md {
+                font-size: 16px !important;
+                line-height: 1.75 !important;
+            }
+        }
+
+
+
+        /* =========================================================
+           HERO PHOTO POSITION FIX
+           Show bride & groom higher in the frame
+           ========================================================= */
+        .hero-photo-position {
+            object-position: center 72% !important;
+        }
+
+        @media (max-width: 640px) {
+            .hero-photo-position {
+                object-position: center 76% !important;
+            }
+        }
+
+
+
+        /* =========================================================
+           TURUT MENGUNDANG - ONE BY ONE SCROLL REVEAL
+           ========================================================= */
+        .invited-family-item,
+        .invited-family-closing {
+            opacity: 0;
+            transform:
+                translate3d(0, 34px, 0)
+                scale(.985);
+            filter: blur(6px);
+            transition:
+                opacity .72s cubic-bezier(.16, 1, .3, 1),
+                transform .82s cubic-bezier(.16, 1, .3, 1),
+                filter .72s ease;
+            will-change: opacity, transform, filter;
+        }
+
+        .invited-family-item.is-visible,
+        .invited-family-closing.is-visible {
+            opacity: 1;
+            transform:
+                translate3d(0, 0, 0)
+                scale(1);
+            filter: blur(0);
+        }
+
+        .invited-family-item::before {
+            transition:
+                transform .45s ease,
+                filter .45s ease,
+                opacity .45s ease;
+        }
+
+        .invited-family-item.is-visible:hover {
+            transform: translateY(-2px);
+        }
+
+        .invited-family-item.is-visible:hover span:first-child {
+            filter: drop-shadow(0 0 8px rgba(255, 224, 136, .32));
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .invited-family-item,
+            .invited-family-closing {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+                transition: none !important;
+            }
+        }
+
+</style>
 </head>
 
 <body class="bg-surface text-on-surface antialiased songket-bg min-h-screen">
@@ -698,8 +1544,8 @@
 
         <img
             alt="Fajar dan Ranti dalam busana adat Minangkabau"
-            class="absolute inset-0 w-full h-full object-cover object-top hero-parallax"
-            src="{{ asset('assets/images/adat/MONO7455-Edit.jpg') }}"
+            class="absolute inset-0 w-full h-full object-cover hero-parallax hero-photo-position"
+            src="{{ asset('assets/images/modern/0K0A7599-Edit-Edit.jpg') }}"
         >
 
         <div class="absolute inset-0 z-20 flex flex-col items-center justify-end text-center p-8 pb-16 hero-content-fx">
@@ -728,7 +1574,7 @@
 
 
     {{-- QS AR-RUM --}}
-    <section class="py-20 text-center px-6 sm:px-12 max-w-4xl mx-auto fx-section">
+    <section class="qs-ar-rum-section py-20 text-center px-6 sm:px-12 max-w-4xl mx-auto fx-section">
 
         <div class="mb-10 flex justify-center">
 
@@ -894,7 +1740,7 @@
 
 
     {{-- MEMPELAI --}}
-    <section class="py-12 px-6 sm:px-12 text-center fx-section">
+    <section class="mempelai-section py-12 px-6 sm:px-12 text-center fx-section">
 
         <h2
             class="font-display-lg text-headline-lg text-primary-container mb-16 fx-heading"
@@ -1906,7 +2752,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-0">
                 @foreach($invitedFamilies as $family)
                     <div
-                        class="group flex items-start gap-4 py-4 border-b border-secondary-fixed/20"
+                        class="invited-family-item group flex items-start gap-4 py-4 border-b border-secondary-fixed/20"
+                        data-invite-index="{{ $loop->index }}"
                     >
                         <div class="flex-shrink-0 pt-[5px]">
                             <span class="text-secondary-fixed text-[11px]">❖</span>
@@ -1948,7 +2795,7 @@
 
 
     {{-- HORMAT KAMI --}}
-    <section class="py-16 text-center px-6 sm:px-12 fx-section">
+    <section class="hormat-kami-section py-16 text-center px-6 sm:px-12 fx-section">
 
         <h3
             class="font-display-lg text-[24px] text-primary mb-6 fx-heading"
@@ -2116,14 +2963,14 @@
 </audio>
 
 <button
-    id="music-control"
-    class="music-control"
+    id="wedding-music-control"
+    class="wedding-music-control"
     type="button"
     aria-label="Putar atau jeda musik"
     aria-pressed="false"
 >
     <span
-        id="music-icon"
+        id="wedding-music-icon"
         class="material-symbols-outlined"
     >
         volume_off
@@ -2131,8 +2978,8 @@
 </button>
 
 <div
-    id="music-tip"
-    class="music-tip"
+    id="wedding-music-tip"
+    class="wedding-music-tip"
     aria-hidden="true"
 >
     Tap untuk musik
@@ -2349,162 +3196,355 @@
 
 
 <script>
-    (function () {
-        const audio = document.getElementById('wedding-music');
-        const button = document.getElementById('music-control');
-        const icon = document.getElementById('music-icon');
-        const tip = document.getElementById('music-tip');
+(function () {
+    const prefersReduced =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (!audio || !button || !icon) {
-            return;
+    if (prefersReduced) return;
+
+    const cards = document.querySelectorAll(
+        '.ornate-border, .gallery-item, .fx-card'
+    );
+
+    cards.forEach(function(card) {
+        card.addEventListener('pointermove', function(e) {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - .5;
+            const y = (e.clientY - rect.top) / rect.height - .5;
+
+            card.style.transform =
+                'perspective(900px) rotateX(' +
+                (-y * 2.2) +
+                'deg) rotateY(' +
+                (x * 2.2) +
+                'deg) translateY(-2px)';
+        });
+
+        card.addEventListener('pointerleave', function() {
+            card.style.transform = '';
+        });
+    });
+
+    const hero =
+        document.querySelector('.hero-parallax, .fx-cover-image, .photo-section img');
+
+    if (hero) {
+        let ticking = false;
+
+        function cinematicParallax() {
+            const y = window.scrollY || 0;
+            const shift = Math.min(75, y * .12);
+
+            hero.style.transform =
+                'translate3d(0,' +
+                shift +
+                'px,0) scale(1.07)';
+
+            ticking = false;
         }
 
-        audio.volume = 0.55;
+        window.addEventListener(
+            'scroll',
+            function() {
+                if (!ticking) {
+                    requestAnimationFrame(cinematicParallax);
+                    ticking = true;
+                }
+            },
+            { passive: true }
+        );
 
-        let startedByUser = false;
-        let autoplayBlocked = false;
+        cinematicParallax();
+    }
+})();
+</script>
 
-        function setPlayingState(isPlaying) {
-            button.classList.toggle('is-playing', isPlaying);
-            button.setAttribute(
-                'aria-pressed',
-                isPlaying ? 'true' : 'false'
-            );
 
-            icon.textContent = isPlaying
+<script>
+(function () {
+    const audio =
+        document.getElementById('wedding-music');
+
+    const button =
+        document.getElementById('wedding-music-control');
+
+    const icon =
+        document.getElementById('wedding-music-icon');
+
+    const tip =
+        document.getElementById('wedding-music-tip');
+
+    if (!audio || !button || !icon) {
+        return;
+    }
+
+    audio.volume = 0.55;
+
+    let autoplayBlocked = false;
+    let userInteracted = false;
+
+    function updateMusicUI(isPlaying) {
+        button.classList.toggle(
+            'is-playing',
+            isPlaying
+        );
+
+        button.setAttribute(
+            'aria-pressed',
+            isPlaying ? 'true' : 'false'
+        );
+
+        icon.textContent =
+            isPlaying
                 ? 'volume_up'
                 : 'volume_off';
-        }
+    }
 
-        async function tryPlay() {
-            try {
-                await audio.play();
+    async function playMusic() {
+        try {
+            await audio.play();
 
-                autoplayBlocked = false;
-                setPlayingState(true);
+            autoplayBlocked = false;
+            updateMusicUI(true);
 
-                if (tip) {
-                    tip.classList.remove('show');
-                }
-
-                return true;
-            } catch (error) {
-                autoplayBlocked = true;
-                setPlayingState(false);
-
-                if (tip) {
-                    tip.classList.add('show');
-
-                    window.setTimeout(function () {
-                        tip.classList.remove('show');
-                    }, 4500);
-                }
-
-                return false;
+            if (tip) {
+                tip.classList.remove('show');
             }
-        }
 
-        function pauseMusic() {
-            audio.pause();
-            setPlayingState(false);
-        }
+            return true;
+        } catch (error) {
+            autoplayBlocked = true;
+            updateMusicUI(false);
 
-        button.addEventListener('click', async function () {
-            startedByUser = true;
+            if (tip) {
+                tip.classList.add('show');
+
+                window.setTimeout(
+                    function () {
+                        tip.classList.remove('show');
+                    },
+                    4500
+                );
+            }
+
+            return false;
+        }
+    }
+
+    function pauseMusic() {
+        audio.pause();
+        updateMusicUI(false);
+    }
+
+    button.addEventListener(
+        'click',
+        async function () {
+            userInteracted = true;
 
             if (audio.paused) {
-                await tryPlay();
+                await playMusic();
             } else {
                 pauseMusic();
             }
-        });
-
-        audio.addEventListener('play', function () {
-            setPlayingState(true);
-        });
-
-        audio.addEventListener('pause', function () {
-            setPlayingState(false);
-        });
-
-        /*
-         * Browser modern sering memblokir autoplay audio bersuara.
-         * Kita tetap mencoba autoplay langsung.
-         */
-        window.addEventListener('load', function () {
-            window.setTimeout(tryPlay, 350);
-        });
-
-        /*
-         * Jika diblokir, musik otomatis dimulai pada interaksi pertama
-         * pengunjung: klik, touch, atau tombol keyboard.
-         */
-        async function unlockAudio() {
-            if (
-                startedByUser ||
-                !audio.paused ||
-                !autoplayBlocked
-            ) {
-                cleanupUnlock();
-                return;
-            }
-
-            startedByUser = true;
-            await tryPlay();
-            cleanupUnlock();
         }
+    );
 
-        function cleanupUnlock() {
-            document.removeEventListener(
-                'pointerdown',
-                unlockAudio
-            );
+    audio.addEventListener(
+        'play',
+        function () {
+            updateMusicUI(true);
+        }
+    );
 
-            document.removeEventListener(
-                'touchstart',
-                unlockAudio
-            );
+    audio.addEventListener(
+        'pause',
+        function () {
+            updateMusicUI(false);
+        }
+    );
 
-            document.removeEventListener(
-                'keydown',
-                unlockAudio
+    /*
+     * Try autoplay when the invitation loads.
+     * Chrome/Safari can block audible autoplay.
+     */
+    window.addEventListener(
+        'load',
+        function () {
+            window.setTimeout(
+                playMusic,
+                350
             );
         }
+    );
 
-        document.addEventListener(
+    /*
+     * If autoplay is blocked, start on the visitor's
+     * first click/touch/keyboard interaction.
+     */
+    async function unlockMusic() {
+        if (
+            userInteracted ||
+            !audio.paused ||
+            !autoplayBlocked
+        ) {
+            cleanupUnlockListeners();
+            return;
+        }
+
+        userInteracted = true;
+
+        await playMusic();
+
+        cleanupUnlockListeners();
+    }
+
+    function cleanupUnlockListeners() {
+        document.removeEventListener(
             'pointerdown',
-            unlockAudio,
-            { passive: true }
+            unlockMusic
         );
 
-        document.addEventListener(
+        document.removeEventListener(
             'touchstart',
-            unlockAudio,
-            { passive: true }
+            unlockMusic
         );
 
-        document.addEventListener(
+        document.removeEventListener(
             'keydown',
-            unlockAudio
+            unlockMusic
         );
+    }
 
-        /*
-         * Saat user kembali ke tab, lanjutkan lagi hanya jika sebelumnya
-         * musik memang sedang berjalan.
-         */
-        let wasPlayingBeforeHidden = false;
+    document.addEventListener(
+        'pointerdown',
+        unlockMusic,
+        { passive: true }
+    );
 
-        document.addEventListener(
-            'visibilitychange',
-            function () {
-                if (document.hidden) {
-                    wasPlayingBeforeHidden = !audio.paused;
-                } else if (wasPlayingBeforeHidden) {
-                    tryPlay();
-                }
+    document.addEventListener(
+        'touchstart',
+        unlockMusic,
+        { passive: true }
+    );
+
+    document.addEventListener(
+        'keydown',
+        unlockMusic
+    );
+
+    /*
+     * Resume when returning to the tab if it was playing before.
+     */
+    let wasPlayingBeforeHidden = false;
+
+    document.addEventListener(
+        'visibilitychange',
+        function () {
+            if (document.hidden) {
+                wasPlayingBeforeHidden =
+                    !audio.paused;
+            } else if (
+                wasPlayingBeforeHidden
+            ) {
+                playMusic();
             }
+        }
+    );
+})();
+</script>
+
+
+<script>
+(function () {
+    const inviteItems =
+        document.querySelectorAll(
+            '.invited-family-item'
         );
-    })();
+
+    const closing =
+        document.querySelector(
+            '.invited-family-closing'
+        );
+
+    if (!inviteItems.length) {
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const item = entry.target;
+                const index =
+                    Number(
+                        item.dataset.inviteIndex || 0
+                    );
+
+                /*
+                 * Small stagger keeps each name feeling
+                 * individually revealed without slowing scrolling.
+                 */
+                const delay =
+                    (index % 2) * 110;
+
+                window.setTimeout(
+                    function () {
+                        item.classList.add(
+                            'is-visible'
+                        );
+                    },
+                    delay
+                );
+
+                observer.unobserve(item);
+            });
+        },
+        {
+            root: null,
+            threshold: 0.28,
+            rootMargin: '0px 0px -10% 0px'
+        }
+    );
+
+    inviteItems.forEach(function (item) {
+        observer.observe(item);
+    });
+
+    if (closing) {
+        const closingObserver =
+            new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+                        window.setTimeout(
+                            function () {
+                                closing.classList.add(
+                                    'is-visible'
+                                );
+                            },
+                            180
+                        );
+
+                        closingObserver.unobserve(
+                            closing
+                        );
+                    });
+                },
+                {
+                    threshold: 0.35,
+                    rootMargin: '0px 0px -8% 0px'
+                }
+            );
+
+        closingObserver.observe(closing);
+    }
+})();
 </script>
 
 </body>

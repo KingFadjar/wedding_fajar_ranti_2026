@@ -1036,6 +1036,347 @@
                 0 0 28px rgba(214,166,47,.08) inset;
         }
 
+
+
+        /* =========================================================
+           MINANG PREMIUM CINEMATIC THEME
+           Inspired by supplied TikTok reference
+           ========================================================= */
+        :root {
+            --minang-black: #110b0b;
+            --minang-black-soft: #1b1111;
+            --minang-maroon: #5b0814;
+            --minang-maroon-deep: #35040b;
+            --minang-red: #7a0d1c;
+            --minang-gold: #d9b86c;
+            --minang-gold-soft: #f2ddb0;
+            --minang-cream: #f8eee3;
+            --minang-line: rgba(217, 184, 108, .38);
+            --minang-glass: rgba(18, 10, 10, .74);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 20% 10%, rgba(122, 13, 28, .18), transparent 28%),
+                radial-gradient(circle at 80% 42%, rgba(217, 184, 108, .08), transparent 24%),
+                linear-gradient(180deg, #130b0c 0%, #2b080e 52%, #110909 100%) !important;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: .23;
+            background-image:
+                linear-gradient(45deg, rgba(217,184,108,.035) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(217,184,108,.035) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(217,184,108,.035) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(217,184,108,.035) 75%);
+            background-size: 34px 34px;
+            background-position: 0 0, 0 17px, 17px -17px, -17px 0;
+        }
+
+        main,
+        .page,
+        header,
+        footer,
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* cinematic section rhythm */
+        section {
+            scroll-margin-top: 20px;
+        }
+
+        section:not(.invitation-card) {
+            border-color: rgba(217,184,108,.12) !important;
+        }
+
+        /* dark premium surfaces */
+        .bg-surface,
+        .bg-surface-container-low,
+        .bg-surface-container-lowest,
+        .bg-white,
+        .bg-\[\#fff8f5\],
+        .bg-stone-50,
+        .bg-stone-100 {
+            background-color: rgba(20, 10, 11, .86) !important;
+            color: var(--minang-cream) !important;
+        }
+
+        .text-on-surface,
+        .text-on-surface-variant,
+        .text-stone-800,
+        .text-stone-700,
+        .text-stone-600,
+        .text-stone-500,
+        .text-muted,
+        .text-textmain {
+            color: rgba(248,238,227,.82) !important;
+        }
+
+        .text-primary,
+        .text-primary-container,
+        .text-maroon,
+        .text-gold,
+        .text-secondary {
+            color: var(--minang-gold) !important;
+        }
+
+        .border-primary\/20,
+        .border-maroon\/10,
+        .border-gold\/20,
+        .border-stone-100,
+        .border-stone-200 {
+            border-color: rgba(217,184,108,.20) !important;
+        }
+
+        /* ornamental frame */
+        .minang-frame,
+        .ornate-border,
+        .gallery-item,
+        .invitation-card {
+            position: relative;
+            border: 1px solid rgba(217,184,108,.34) !important;
+            box-shadow:
+                0 24px 70px rgba(0,0,0,.30),
+                inset 0 0 0 1px rgba(255,255,255,.02);
+        }
+
+        .ornate-border::after,
+        .minang-frame::after {
+            border-color: rgba(217,184,108,.52) !important;
+        }
+
+        /* title typography */
+        h1, h2, h3,
+        .font-display-lg,
+        .font-serif,
+        .font-display,
+        .couple-name {
+            letter-spacing: -.02em;
+            text-wrap: balance;
+        }
+
+        h1, h2,
+        .couple-name {
+            text-shadow:
+                0 3px 22px rgba(0,0,0,.42),
+                0 0 26px rgba(217,184,108,.08);
+        }
+
+        /* gold button style like reference */
+        a[class*="bg-primary-container"],
+        button[class*="bg-primary-container"],
+        .open-button,
+        .filter-button.active,
+        .admin-header-button.bg-maroon {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4dfb0 0%,
+                    #d9b86c 50%,
+                    #b98c3c 100%
+                ) !important;
+            color: #2c160d !important;
+            border: 1px solid rgba(255,245,220,.72) !important;
+            box-shadow:
+                0 10px 28px rgba(0,0,0,.24),
+                inset 0 1px 0 rgba(255,255,255,.45);
+        }
+
+        a[class*="bg-primary-container"]:hover,
+        button[class*="bg-primary-container"]:hover,
+        .open-button:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow:
+                0 16px 38px rgba(0,0,0,.34),
+                0 0 24px rgba(217,184,108,.16);
+        }
+
+        /* hero becomes cinematic */
+        section:first-of-type,
+        .photo-section {
+            isolation: isolate;
+        }
+
+        section:first-of-type::after,
+        .photo-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(10,4,5,.10) 0%,
+                    rgba(10,4,5,.12) 48%,
+                    rgba(10,4,5,.74) 100%
+                );
+            z-index: 1;
+        }
+
+        /* make first hero photo deeper and premium */
+        .hero-parallax,
+        .fx-cover-image,
+        .photo-section img {
+            filter:
+                saturate(.82)
+                contrast(1.05)
+                brightness(.82);
+        }
+
+        /* section cards with reference-like black/brown glass */
+        .fx-card,
+        .ornate-border,
+        .gallery-item,
+        .mobile-rsvp-card article {
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(27,17,17,.92),
+                    rgba(15,9,9,.96)
+                ) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* timeline/vertical visual cue */
+        .fx-section::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 1px;
+            height: 34px;
+            transform: translateX(-50%);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(217,184,108,.60),
+                    transparent
+                );
+            opacity: .55;
+            pointer-events: none;
+        }
+
+        /* songket diamond details */
+        .fx-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fx-section .font-display-lg::before,
+        .fx-section .font-serif::before {
+            content: "";
+        }
+
+        /* inputs */
+        input,
+        textarea,
+        select {
+            background: rgba(255,255,255,.06) !important;
+            color: var(--minang-cream) !important;
+            border-color: rgba(217,184,108,.25) !important;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(248,238,227,.42) !important;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: rgba(217,184,108,.72) !important;
+            box-shadow: 0 0 0 3px rgba(217,184,108,.10) !important;
+        }
+
+        option {
+            background: #1b1111;
+            color: #f8eee3;
+        }
+
+        /* floating controls */
+        .music-control,
+        .floating-fx {
+            background:
+                linear-gradient(145deg, #6c0b18, #35040b) !important;
+            color: var(--minang-gold-soft) !important;
+            border-color: rgba(217,184,108,.55) !important;
+        }
+
+        /* elegant reveal */
+        .fx-reveal {
+            transform:
+                perspective(1100px)
+                translate3d(0, 55px, 0)
+                scale(.97);
+            filter: blur(9px);
+            opacity: 0;
+        }
+
+        .fx-reveal.fx-visible {
+            transform:
+                perspective(1100px)
+                translate3d(0,0,0)
+                scale(1);
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        /* subtle image frame */
+        img {
+            image-rendering: auto;
+        }
+
+        .gallery-item {
+            border-radius: 20px !important;
+        }
+
+        .gallery-item img {
+            transition:
+                transform .7s cubic-bezier(.16,1,.3,1),
+                filter .7s ease !important;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.055) !important;
+            filter: brightness(.72) saturate(.9) !important;
+        }
+
+        /* mobile = narrow luxury invitation feel */
+        @media (max-width: 640px) {
+            body {
+                background:
+                    linear-gradient(180deg,#150b0c,#300810 45%,#100808) !important;
+            }
+
+            section {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+
+            .fx-card,
+            .ornate-border,
+            .gallery-item {
+                border-radius: 18px !important;
+            }
+
+            h1 {
+                line-height: 1.05 !important;
+            }
+
+            .music-control {
+                width: 46px;
+                height: 46px;
+            }
+        }
+
 </style>
 </head>
 
@@ -1543,6 +1884,71 @@
     );
 
     updateCoverParallax();
+})();
+</script>
+
+
+<script>
+(function () {
+    const prefersReduced =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) return;
+
+    const cards = document.querySelectorAll(
+        '.ornate-border, .gallery-item, .fx-card'
+    );
+
+    cards.forEach(function(card) {
+        card.addEventListener('pointermove', function(e) {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - .5;
+            const y = (e.clientY - rect.top) / rect.height - .5;
+
+            card.style.transform =
+                'perspective(900px) rotateX(' +
+                (-y * 2.2) +
+                'deg) rotateY(' +
+                (x * 2.2) +
+                'deg) translateY(-2px)';
+        });
+
+        card.addEventListener('pointerleave', function() {
+            card.style.transform = '';
+        });
+    });
+
+    const hero =
+        document.querySelector('.hero-parallax, .fx-cover-image, .photo-section img');
+
+    if (hero) {
+        let ticking = false;
+
+        function cinematicParallax() {
+            const y = window.scrollY || 0;
+            const shift = Math.min(75, y * .12);
+
+            hero.style.transform =
+                'translate3d(0,' +
+                shift +
+                'px,0) scale(1.07)';
+
+            ticking = false;
+        }
+
+        window.addEventListener(
+            'scroll',
+            function() {
+                if (!ticking) {
+                    requestAnimationFrame(cinematicParallax);
+                    ticking = true;
+                }
+            },
+            { passive: true }
+        );
+
+        cinematicParallax();
+    }
 })();
 </script>
 
